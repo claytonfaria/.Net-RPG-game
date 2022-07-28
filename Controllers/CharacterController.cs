@@ -33,7 +33,11 @@ public class CharacterController : ControllerBase
     [HttpGet("{id:int}", Name = "Get")]
     public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Get(int id)
     {
-        return Ok(await _characterService.GetCharacterById(id));
+
+        var response = await _characterService.GetCharacterById(id);
+        if (response.Data != null) return Ok(response);
+        response.Success = false;
+        return NotFound(response);
     }
 
     // POST: api/characters
@@ -51,11 +55,9 @@ public class CharacterController : ControllerBase
     public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Put(int id, [FromBody] UpdateCharacterDto updatedCharacter)
     {
         var response = await _characterService.UpdateCharacter(id, updatedCharacter);
-        if (response.Data == null)
-        {
-            return NotFound(response);
-        }
-        return Ok(response);
+        if (response.Data != null) return Ok(response);
+        response.Success = false;
+        return NotFound(response);
     }
 
     // DELETE: api/characters/5
@@ -63,10 +65,8 @@ public class CharacterController : ControllerBase
     public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Delete(int id)
     {
         var response = await _characterService.DeleteCharacter(id);
-        if (response.Data == null)
-        {
-            return NotFound(response);
-        }
-        return Ok(response);
+        if (response.Data != null) return Ok(response);
+        response.Success = false;
+        return NotFound(response);
     }
 }
