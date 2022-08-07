@@ -1,15 +1,17 @@
+using System.Security.Claims;
 using dotnet_rpg.Dtos.Character;
 using dotnet_rpg.Models;
 using dotnet_rpg.Services.CharacterService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_rpg.Controllers;
 
-[Route("api/[controller]")]
+[Authorize]
+[Route("api/characters")]
 [ApiController]
 public class CharacterController : ControllerBase
 {
-
     private readonly ICharacterService _characterService;
     private readonly ILogger<CharacterController> _logger;
 
@@ -18,13 +20,13 @@ public class CharacterController : ControllerBase
         _characterService = characterService;
         _logger = logger;
     }
-    
+
 
     // GET: api/characters
     [HttpGet]
     public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
     {
-        _logger.LogInformation("GET: api/characters called at {}", 
+        _logger.LogInformation("GET: api/characters called at {}",
             DateTime.UtcNow.ToLongTimeString());
         return Ok(await _characterService.GetAllCharacters());
     }
@@ -33,7 +35,6 @@ public class CharacterController : ControllerBase
     [HttpGet("{id:int}", Name = "Get")]
     public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Get(int id)
     {
-
         var response = await _characterService.GetCharacterById(id);
         if (response.Data != null) return Ok(response);
         response.Success = false;
@@ -42,9 +43,9 @@ public class CharacterController : ControllerBase
 
     // POST: api/characters
     [HttpPost]
-    public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Post([FromBody] AddCharacterDto newCharacter)
+    public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Post(
+        [FromBody] AddCharacterDto newCharacter)
     {
-
         return Created("created", await _characterService.AddCharacter(newCharacter));
     }
 
@@ -52,7 +53,8 @@ public class CharacterController : ControllerBase
     [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ServiceResponse<GetCharacterDto>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ServiceResponse<>))]
-    public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Put(int id, [FromBody] UpdateCharacterDto updatedCharacter)
+    public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Put(int id,
+        [FromBody] UpdateCharacterDto updatedCharacter)
     {
         var response = await _characterService.UpdateCharacter(id, updatedCharacter);
         if (response.Data != null) return Ok(response);
