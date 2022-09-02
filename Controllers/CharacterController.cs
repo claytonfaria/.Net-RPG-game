@@ -28,6 +28,8 @@ public class CharacterController : ControllerBase
     {
         _logger.LogInformation("GET: api/characters called at {}",
             DateTime.UtcNow.ToLongTimeString());
+
+        throw new ApplicationException("Error");
         return Ok(await _characterService.GetAllCharacters());
     }
 
@@ -36,6 +38,7 @@ public class CharacterController : ControllerBase
     public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> Get(int id)
     {
         var response = await _characterService.GetCharacterById(id);
+        
         if (response.Data != null) return Ok(response);
         response.Success = false;
         return NotFound(response);

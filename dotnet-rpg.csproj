@@ -11,18 +11,18 @@
 
     <ItemGroup>
         <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.7">
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.8">
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.7">
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.8">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.22.0" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.7" />
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.8" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.4" />
         <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.22.0" />
@@ -41,6 +41,7 @@
       <Content Remove="Models\Delete.cshtml" />
       <Content Remove="Services\WeaponService\**" />
     </ItemGroup>
+
 
     <ItemGroup>
       <EmbeddedResource Remove="Services\WeaponService\**" />

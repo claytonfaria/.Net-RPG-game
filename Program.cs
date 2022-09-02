@@ -1,4 +1,5 @@
 using dotnet_rpg.Data;
+using dotnet_rpg.Extensions;
 using dotnet_rpg.Services.AuthRepository;
 using dotnet_rpg.Services.CharacterService;
 using dotnet_rpg.Services.CharacterSkillService;
@@ -47,6 +48,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
+
+app.ConfigureExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
