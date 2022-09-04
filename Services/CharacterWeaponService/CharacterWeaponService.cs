@@ -37,7 +37,7 @@ public class CharacterWeaponService : ICharacterWeaponService
                 character.Id == characterId && character.User!.Id ==
                 currentUserId);
 
-            if (character == null)
+            if (character is null)
             {
                 response.Success = false;
                 response.Message = "Character not found";

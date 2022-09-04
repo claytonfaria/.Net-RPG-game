@@ -55,7 +55,7 @@ public class AuthRepository : IAuthRepository
         var response = new ServiceResponse<string>();
         var user = await _context.Users.FirstOrDefaultAsync(user => user.Username.ToLower().Equals(username.ToLower()));
 
-        if (user == null)
+        if (user is null)
         {
             response.Success = false;
             response.Message = "User not found";

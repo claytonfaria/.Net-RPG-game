@@ -34,7 +34,7 @@ public class CharacterSkillService : ICharacterSkillService
                 .Include(c => c.Skills)
                 .FirstOrDefaultAsync(c => c.Id == characterId && c.User.Id == _authRepository.GetUserId());
 
-            if (character == null)
+            if (character is null)
             {
                 response.Success = false;
                 response.Message = "Character not found";
@@ -42,7 +42,7 @@ public class CharacterSkillService : ICharacterSkillService
             }
 
             var skill = await _context.Skills.FirstOrDefaultAsync(s => s.Id == newCharacterSkill.SkillId);
-            if (skill == null)
+            if (skill is null)
             {
                 response.Success = false;
                 response.Message = "Skill not found";

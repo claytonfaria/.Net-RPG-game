@@ -28,8 +28,7 @@ public class CharacterController : ControllerBase
     {
         _logger.LogInformation("GET: api/characters called at {}",
             DateTime.UtcNow.ToLongTimeString());
-
-        throw new ApplicationException("Error");
+        
         return Ok(await _characterService.GetAllCharacters());
     }
 
@@ -39,7 +38,7 @@ public class CharacterController : ControllerBase
     {
         var response = await _characterService.GetCharacterById(id);
         
-        if (response.Data != null) return Ok(response);
+        if (response.Data is not null) return Ok(response);
         response.Success = false;
         return NotFound(response);
     }
@@ -60,7 +59,7 @@ public class CharacterController : ControllerBase
         [FromBody] UpdateCharacterDto updatedCharacter)
     {
         var response = await _characterService.UpdateCharacter(id, updatedCharacter);
-        if (response.Data != null) return Ok(response);
+        if (response.Data is not null) return Ok(response);
         response.Success = false;
         return NotFound(response);
     }
@@ -70,7 +69,7 @@ public class CharacterController : ControllerBase
     public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Delete(int id)
     {
         var response = await _characterService.DeleteCharacter(id);
-        if (response.Data != null) return Ok(response);
+        if (response.Data is not null) return Ok(response);
         response.Success = false;
         return NotFound(response);
     }
